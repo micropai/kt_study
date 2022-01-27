@@ -16,9 +16,9 @@ public enum DeptType {
 
     private final String detpCode;
 
-    public static DeptType getDept(String dept){
+    public static DeptType getDept(String deptCode){
         return Arrays.stream(DeptType.values())
-                .filter(t -> t.name().equals(dept))
+                .filter(t -> t.getDetpCode().equals(deptCode))
                 .findFirst()
                 .orElse(DeptType.NONE);
     }

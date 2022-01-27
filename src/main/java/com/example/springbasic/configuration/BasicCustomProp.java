@@ -22,7 +22,6 @@ public class BasicCustomProp {
 
     /**
      * 생성자를 통한 프로퍼티 바인딩
-     * @param type
      */
     BasicCustomProp(@Value("${custom.basic.type}") String type){
         this.type = type;

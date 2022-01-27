@@ -26,7 +26,7 @@ class CalculatorServiceTest {
     }
 
     @Test
-    @DisplayName("합 연산 테스트")
+    @DisplayName("[service] 합 연산 테스트")
     void sum() {
         // given
         final int a = 3;
@@ -38,7 +38,7 @@ class CalculatorServiceTest {
     }
 
     @Test
-    @DisplayName("차 연산 테스트")
+    @DisplayName("[service] 차 연산 테스트")
     void minus() {
         // given
         final int a = 2_000;
