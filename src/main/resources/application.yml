@@ -1,0 +1,13 @@
+custom:
+    basic:
+        name: basic-name
+        type: basic-type
+        url: basic-url
+    configuration:
+        name: config-name
+        type: config-type
+        url: config-url
+    construct:
+        name: construct-name
+        type: construct-type
+        url: construct-url
