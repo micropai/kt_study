@@ -16,7 +16,7 @@
     1. exception 에 대해서
     1. validation -> 설명?
     1. java 기본기
-        + exception https://reference-m1.tistory.com/246
+        + exception [참조해서 볼만한 다이어그램](https://reference-m1.tistory.com/246)
         + multiparam
         + int
         + enum
