@@ -1,9 +1,10 @@
 package com.example.springbasic.service;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CalculatorService {
+public class CalculatorService{
 
     public int sum(int a, int b){
         return a + b;
