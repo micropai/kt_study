@@ -2,10 +2,8 @@ package com.example.springbasic.define.type;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("[enum] enum 사용법을 위한 테스트 코드")
 class DeptTypeTest {
