@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.BDDAssertions.then;
 
 @Slf4j
+@DisplayName("[annt] 커스텀 어노테이션")
 class CustomServiceTest {
     @Test
     @DisplayName("[annt] 커스텀 어노테이션 테스트")

@@ -13,7 +13,7 @@ class DeptTypeTest {
         // given
         final DeptType expected = DeptType.MATERIALS;
         // when
-        DeptType actual = DeptType.getDept(expected.name());
+        DeptType actual = DeptType.getDept(expected.getDetpCode());
         // then
         then(actual).isEqualTo(expected);
     }

@@ -15,6 +15,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
+@DisplayName("[stream] test code")
 public class StreamTest {
 
     @Test
@@ -137,6 +138,5 @@ public class StreamTest {
         // stream 이 닫혔기 때문에 실패나야 합니다.~
         thenThrownBy(()->then(actual).containsSequence(priorityQueue));
     }
-
-
+    
 }

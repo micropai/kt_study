@@ -9,7 +9,7 @@ import org.springframework.test.context.TestConstructor;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DisplayName("연산테스트")
+@DisplayName("[service] Calculator test code")
 @TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
 @TestMethodOrder(MethodOrderer.MethodName.class)
 @SpringBootTest

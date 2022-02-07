@@ -11,6 +11,7 @@ import java.util.function.*;
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 
+@DisplayName("[lambda] test code")
 public class LambdaTest {
     @Test
     @DisplayName("[lambda] Predicate test code")
@@ -105,13 +106,13 @@ public class LambdaTest {
     @Test
     @DisplayName("[lambda] Thread test code")
     @Timeout(1)
-    public void testThread() throws InterruptedException {
+    public void testThread(){
         // given
 
         // when & then
         new Thread(()-> {
             try {
-                Thread.sleep(2000l);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 // check exception 은 Runnable 에서 처리하지 않기 때문에
                 // 내부적으로 처리해 줘야 합니다.
