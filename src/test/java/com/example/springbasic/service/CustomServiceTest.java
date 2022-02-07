@@ -13,7 +13,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 class CustomServiceTest {
     @Test
     @DisplayName("[annt] 커스텀 어노테이션 테스트")
-    public void testCustomAnnotaion(){
+    void testCustomAnnotaion(){
         // given
         // when
         CustomAntt actual = CustomService.class.getAnnotation(CustomAntt.class);
