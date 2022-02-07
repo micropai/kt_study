@@ -9,7 +9,7 @@ import static org.assertj.core.api.BDDAssertions.then;
 class DeptTypeTest {
     @Test
     @DisplayName("[enum] string 으로 부서 조회")
-    public void testGetDeptString(){
+    void testGetDeptString(){
         // given
         final DeptType expected = DeptType.MATERIALS;
         // when
@@ -20,7 +20,7 @@ class DeptTypeTest {
     
     @Test
     @DisplayName("[enum] 존재하지 않는 부서인 경우 처리")
-    public void testNotFoundDept(){
+    void testNotFoundDept(){
         // given
         final String dept = "aabbcc";
         // when

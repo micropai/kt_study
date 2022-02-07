@@ -15,7 +15,7 @@ import static org.assertj.core.api.BDDAssertions.thenThrownBy;
 public class LambdaTest {
     @Test
     @DisplayName("[lambda] Predicate test code")
-    public void testPredicate(){
+    void testPredicate(){
         // given
         Predicate<Integer> isEven = i -> i % 2 == 0;
         // when & then
@@ -26,7 +26,7 @@ public class LambdaTest {
 
     @Test
     @DisplayName("[lambda] Function test code")
-    public void testFunction(){
+    void testFunction(){
         // given
         Function<Integer, Integer> addThree = (a)-> a+3;
         // when & then
@@ -37,7 +37,7 @@ public class LambdaTest {
 
     @Test
     @DisplayName("[lambda] Cumsumer test code")
-    public void testCumsumer(){
+    void testCumsumer(){
         // given
         Consumer<String> consumer = s -> then(s).startsWith("kt");
         // when & then
@@ -46,7 +46,7 @@ public class LambdaTest {
 
     @Test
     @DisplayName("[lambda] Supplier test code")
-    public void testSupplier(){
+    void testSupplier(){
         // given
         Supplier<String> supplier = ()-> UUID.randomUUID().toString();
         // when & then
@@ -56,7 +56,7 @@ public class LambdaTest {
 
     @Test
     @DisplayName("[lambda] enum 으로 람다 사용 예시")
-    public void testEnum(){
+    void testEnum(){
         // given
         final Integer a = 5_543;
         final Integer b = 1_001;
@@ -106,7 +106,7 @@ public class LambdaTest {
     @Test
     @DisplayName("[lambda] Thread test code")
     @Timeout(1)
-    public void testThread(){
+    void testThread(){
         // given
 
         // when & then
