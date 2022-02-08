@@ -28,4 +28,5 @@ class DeptTypeTest {
         // then
         then(actual).isEqualTo(DeptType.NONE);
     }
+
 }

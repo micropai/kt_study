@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -170,10 +171,74 @@ public class StreamTest {
         Stream<String> actual = IntStream.range(0, 10).mapToObj(Integer::toBinaryString);
         // then
         then(actual)
-                .zipSatisfy(IntStream.range(0, 10).boxed().collect(Collectors.toList()), (binaryStr, i)->{
-                    then(Integer.parseInt(binaryStr, 2)).isEqualTo(i);
-                });
+                .zipSatisfy(IntStream.range(0, 10).boxed().collect(Collectors.toList())
+                        , (binaryStr, i)->then(Integer.parseInt(binaryStr, 2)).isEqualTo(i));
     }
-    // TODO flatmap
+
+
+    @Test
+    @DisplayName("[가공] flatMap")
+    void testFlatMap(){
+        // given
+        List<Student> students = Arrays.asList(
+                new Student("a", 17, 65, 83, 92),
+                new Student("b", 17, 75, 77, 78),
+                new Student("c", 19, 85, 88, 85),
+                new Student("d", 19, 90, 81, 84));
+        // when
+        double actual = students.stream()
+                .flatMapToInt(s ->
+                        IntStream.of(s.getKor(), s.getEng(), s.getMath()))
+                .average()
+                .orElse(0);
+
+        double expected = students.stream()
+                .mapToDouble(s -> IntStream.of(s.getKor(), s.getEng(), s.getMath())
+                        .average().orElse(0))
+                .average()
+                .orElse(0);
+        // then
+        then(actual).isEqualTo(expected);
+    }
     // TODO 결과
+    // reduce 나 int 형태의 써머리 , 종합 써머리, group 등 추가
+    // 학년별로
+    static class Student {
+        private final String name;
+        // 학년
+        private final int grade;
+        private final int kor;
+        private final int eng;
+        private final int math;
+
+
+        public Student(String name, int age, int kor, int eng, int math) {
+            this.name = name;
+            this.grade = age;
+            this.kor = kor;
+            this.eng = eng;
+            this.math = math;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public int getGrade() {
+            return grade;
+        }
+
+        public int getKor() {
+            return kor;
+        }
+
+        public int getEng() {
+            return eng;
+        }
+
+        public int getMath() {
+            return math;
+        }
+    }
+
 }
