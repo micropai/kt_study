@@ -181,10 +181,10 @@ public class StreamTest {
     void testFlatMap(){
         // given
         List<Student> students = Arrays.asList(
-                new Student("a", 17, 65, 83, 92),
-                new Student("b", 17, 75, 77, 78),
-                new Student("c", 19, 85, 88, 85),
-                new Student("d", 19, 90, 81, 84));
+                new Student("kevin", 17, 65, 83, 92),
+                new Student("ellie", 17, 75, 77, 78),
+                new Student("peter", 19, 85, 88, 85),
+                new Student("smith", 19, 90, 81, 84));
         // when
         double actual = students.stream()
                 .flatMapToInt(s ->
