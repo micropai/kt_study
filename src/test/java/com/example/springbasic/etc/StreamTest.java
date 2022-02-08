@@ -1,13 +1,12 @@
 package com.example.springbasic.etc;
 
+import net.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.PriorityQueue;
+import java.util.*;
+import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -164,7 +163,7 @@ public class StreamTest {
     
     @Test
     @DisplayName("[가공] stream map 테스트")
-    void test(){
+    void testMap(){
         // given
         
         // when
@@ -200,6 +199,47 @@ public class StreamTest {
         // then
         then(actual).isEqualTo(expected);
     }
+    
+    @Test
+    @DisplayName("[결과] colection list")
+    void testCollectList(){
+        // given
+        Random r = new Random();
+        final int org = 5;
+        final int bound = 100;
+        // when
+        List<Integer> actual = r.ints(10, 5, 100).boxed().collect(Collectors.toList());
+        // then
+        then(actual).isInstanceOf(List.class).hasSize(10).allMatch(i-> i>=5 && i < 100);
+    }
+
+    @Test
+    @DisplayName("[결과] colection join")
+    void testCollectJoin(){
+        // given
+        Stream<String> stringStream = Stream.of("kt", "com", "kate");
+        // when
+        String actual = stringStream.collect(Collectors.joining(","));
+        // then
+        then(actual).isEqualTo("kt,com,kate");
+    }
+
+    @Test
+    @DisplayName("[결과] colection groupby count")
+    void testCollectGroupbyCounting(){
+        // given
+        Stream<String> stringStream = Stream.of("kt", "com", "kt", "kt", "kate", "com");
+        // when
+        Map<String, Long> actual = stringStream
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        // then
+        then(actual)
+                .containsEntry("kt", 3L)
+                .containsEntry("com", 2L)
+                .containsEntry("kate", 1L)
+                .doesNotContainKey("kata");
+    }
+
     // TODO 결과
     // reduce 나 int 형태의 써머리 , 종합 써머리, group 등 추가
     // 학년별로
