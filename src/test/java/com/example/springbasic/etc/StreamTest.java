@@ -1,6 +1,5 @@
 package com.example.springbasic.etc;
 
-import net.bytebuddy.utility.RandomString;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -205,12 +204,13 @@ public class StreamTest {
     void testCollectList(){
         // given
         Random r = new Random();
+        final int size = 10;
         final int org = 5;
         final int bound = 100;
         // when
-        List<Integer> actual = r.ints(10, 5, 100).boxed().collect(Collectors.toList());
+        List<Integer> actual = r.ints(size, org, bound).boxed().collect(Collectors.toList());
         // then
-        then(actual).isInstanceOf(List.class).hasSize(10).allMatch(i-> i>=5 && i < 100);
+        then(actual).isInstanceOf(List.class).hasSize(size).allMatch(i-> i>=org && i < bound);
     }
 
     @Test
