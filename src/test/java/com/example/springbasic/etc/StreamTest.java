@@ -3,9 +3,11 @@ package com.example.springbasic.etc;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.mockito.internal.matchers.Null;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -239,10 +241,34 @@ public class StreamTest {
                 .containsEntry("kate", 1L)
                 .doesNotContainKey("kata");
     }
+    
+    @Test
+    @DisplayName("[stream] 동작 순서 예시- 두개 비교해서 보시면 효율이 다른게 보입니다.")
+    @Disabled
+    void testProcessSeq(){
+        // given
+        // when
+        int actual = IntStream.range(0, 5)
+                .filter(e -> e > 2)
+                .peek(e -> System.out.println("Filter Process -> " + e))
+                .map(e -> e * e)
+                .peek(e -> System.out.println("Mapped Process -> " + e))
+                .sum();
+
+        int expected = IntStream.range(0, 5)
+                .map(e -> e * e)
+                .peek(e -> System.out.println("Mapped Process -> " + e))
+                .filter(e -> e > 2)
+                .peek(e -> System.out.println("Filter Process -> " + e))
+                .sum();
+        // then
+        then(actual).isNotEqualTo(expected); // 이건 정확한 테스트 아닙니다.
+    }
 
     // TODO 결과
     // reduce 나 int 형태의 써머리 , 종합 써머리, group 등 추가
     // 학년별로
+
     static class Student {
         private final String name;
         // 학년
