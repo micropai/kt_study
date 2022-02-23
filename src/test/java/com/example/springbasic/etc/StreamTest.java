@@ -3,11 +3,9 @@ package com.example.springbasic.etc;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.matchers.Null;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -169,6 +167,7 @@ public class StreamTest {
         
         // when
         Stream<String> actual = IntStream.range(0, 10).mapToObj(Integer::toBinaryString);
+        actual.forEach(System.out::println);
         // then
         then(actual)
                 .zipSatisfy(IntStream.range(0, 10).boxed().collect(Collectors.toList())

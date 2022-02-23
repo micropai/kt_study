@@ -3,6 +3,7 @@ package com.example.springbasic;
 import com.example.springbasic.configuration.BasicCustomProp;
 import com.example.springbasic.configuration.ConfigCustomProp;
 import com.example.springbasic.configuration.ConstructCustomProp;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
