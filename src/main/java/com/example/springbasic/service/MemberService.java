@@ -22,7 +22,7 @@ public class MemberService {
 
     public <T> T selectById(Long id, Class<T> clazz) {
         return ModelMapperUtils.map(memberRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException(id + " Element not exist ")), clazz);
+                .orElseThrow(() -> new NoSuchElementException("Element id: %d  not exist ".formatted(id))), clazz);
     }
 
 
