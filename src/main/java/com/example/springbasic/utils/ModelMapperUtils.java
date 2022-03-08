@@ -40,6 +40,12 @@ public class ModelMapperUtils {
         return modelMapper;
     }
 
+    public static <T> T map(Object source, T dest) throws MappingException {
+        if(source != null) {
+            getModelMapper().map(source, dest);
+        }
+        return dest;
+    }
 
 
     public static <T> T map(Object source, Type destinationClass) throws MappingException {
