@@ -7,14 +7,13 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
 import org.modelmapper.convention.NameTokenizers;
 import org.modelmapper.spi.MatchingStrategy;
+import org.springframework.util.Assert;
 
 import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
+
 
 public class ModelMapperUtils {
 
@@ -41,60 +40,85 @@ public class ModelMapperUtils {
         return modelMapper;
     }
 
-    public static void map(Object source, Object dest) throws MappingException {
-        if(source != null) {
-            getModelMapper().map(source, dest);
-        }
-    }
 
-    public static void map(Object source, Object dest, EModelMapperType mapperType) throws MappingException {
-        if(source != null) {
-            getModelMapper(mapperType).map(source, dest);
-        }
-    }
 
-    public static <T> T map(Object source, Type type) throws MappingException {
-        if(source != null) {
-            return getModelMapper().map(source, type);
-        }
-        return null;
-    }
-
-    public static <T> T map(Object source, Type type, EModelMapperType mapperType) throws MappingException {
-        if(source != null) {
-            return getModelMapper(mapperType).map(source, type);
-        }
-        return null;
-    }
-
-    public static <T> T map(Object source, Class<T> destinationClass) throws MappingException {
+    public static <T> T map(Object source, Type destinationClass) throws MappingException {
+        Assert.notNull(destinationClass, "destinationType");
         if(source != null) {
             return getModelMapper().map(source, destinationClass);
         }
         return null;
     }
 
-    public static <T> T map(Object source, Class<T> destinationClass, EModelMapperType mapperType) throws MappingException {
+    public static <T> T map(Object source, Type destinationClass, EModelMapperType mapperType) throws MappingException {
+        Assert.notNull(mapperType, "modelMapper");
+        Assert.notNull(destinationClass, "destinationType");
         if(source != null) {
             return getModelMapper(mapperType).map(source, destinationClass);
         }
         return null;
     }
 
+    public static <T> T map(Object source, Class<T> destinationClass) throws MappingException {
+        Assert.notNull(destinationClass, "destinationType");
+        if(source != null) {
+            return getModelMapper().map(source, destinationClass);
+        }
+        return null;
+    }
+
+    public static <T> T mapThrowElse(Optional<?> source, Class<T> destinationClass) throws MappingException {
+        Assert.notNull(destinationClass, "destinationType");
+        Assert.notNull(source, "source");
+        return getModelMapper().map(source.orElseThrow(), destinationClass);
+    }
+
+    public static <T> T mapThrowElse(Optional<?> source, Class<T> destinationClass, Object id) throws MappingException {
+        Assert.notNull(destinationClass, "destinationType");
+        Assert.notNull(source, "source");
+        return getModelMapper().map(source.orElseThrow(), destinationClass);
+    }
+
+    public static <T> T map(Object source, Class<T> destinationClass, EModelMapperType mapperType) throws MappingException {
+        Assert.notNull(mapperType, "modelMapper");
+        Assert.notNull(destinationClass, "destinationType");
+        if(source != null) {
+            return getModelMapper(mapperType).map(source, destinationClass);
+        }
+        return null;
+    }
+
+    /**
+     * Iterable 를 해당 destinationClass 로 복사하여 list 를 생성
+     * @param sources 원본 데이터
+     * @param destinationClass 변경할 class
+     * @return List<T>
+     */
     public static <T> List<T> mapList(Iterable<?> sources, Class<T> destinationClass) {
+        Assert.notNull(destinationClass, "destinationType");
         if(sources != null) {
             return StreamSupport.stream(sources.spliterator(), false).map(entity -> getModelMapper().map(entity, destinationClass))
                     .collect(Collectors.toList());
         }
-        return Collections.<T>emptyList();
+        return Collections.emptyList();
     }
 
+
+    /**
+     * Iterable 를 해당 destinationClass 로 복사하여 list 를 생성
+     * @param sources 원본 데이터
+     * @param destinationClass 변경할 class
+     * @param mapperType mapper 사용 유형
+     * @return List<T>
+     */
     public static <T> List<T> mapList(Iterable<?> sources, Class<T> destinationClass, EModelMapperType mapperType) {
+        Assert.notNull(mapperType, "modelMapper");
+        Assert.notNull(destinationClass, "destinationType");
         if(sources != null) {
             return StreamSupport.stream(sources.spliterator(), false).map(entity -> getModelMapper(mapperType).map(entity, destinationClass))
                     .collect(Collectors.toList());
         }
-        return Collections.<T>emptyList();
+        return Collections.emptyList();
     }
 
     @RequiredArgsConstructor
@@ -104,4 +128,3 @@ public class ModelMapperUtils {
         private final MatchingStrategy matchingStrategy;
     }
 }
-
