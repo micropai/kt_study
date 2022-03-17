@@ -2,15 +2,33 @@ plugins {
     id 'org.springframework.boot' version '2.6.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+    id 'maven-publish'
 }
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+group = 'com.hector'
+version = '0.0.1'
+sourceCompatibility = project.'java.version'
+targetCompatibility = project.'java.version'
 
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = 'nexusRepository'
+            url project.nexusRepositoryReleases
+            credentials(PasswordCredentials)
+            allowInsecureProtocol = true
+        }
+    }
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
     }
 }
 
@@ -30,6 +48,14 @@ dependencies {
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
     runtimeOnly 'com.h2database:h2'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.querydsl:querydsl-jpa'
+    implementation 'javax.persistence:javax.persistence-api'
+
+    annotationProcessor(
+            "javax.persistence:javax.persistence-api",
+            "javax.annotation:javax.annotation-api",
+            "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa")
+
     compileOnly 'org.projectlombok:lombok'
     testCompileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
@@ -37,6 +63,23 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-tasks.named('test') {
+def generated='src/main/generated'
+sourceSets {
+    main.java.srcDirs += [ generated ]
+}
+
+tasks.withType(JavaCompile) {
+    options.generatedSourceOutputDirectory = file(generated)
+}
+
+clean {
+    delete file(generated)
+}
+
+task cleanGeneatedDir(type: Delete) {
+    delete file(generated)
+}
+
+test {
     useJUnitPlatform()
 }
